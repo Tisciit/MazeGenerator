@@ -1,9 +1,31 @@
 class Cell {
+
     constructor(x, y) {
         this.x = x;
         this.y = y;
         this.walls = [true, true, true, true];
         this.available = true;
+    }
+
+    static getIndex(x, y) {
+        return Cell.array.indexOf(Cell.array.find(o => o.x == x && o.y == y));
+    }
+
+    static setGlobals(size, cols, rows) {
+        Cell.size = size;
+        Cell.cols = cols;
+        Cell.rows = rows;
+    }
+
+    static getArray() {
+        let arr = [];
+        for (let x = 0; x < Cell.cols; x++) {
+            for (let y = 0; y < Cell.rows; y++) {
+                arr.push(new Cell(x, y));
+            }
+        }
+        Cell.array = arr;
+        return arr;
     }
 
     removeWalls(target) {
@@ -24,7 +46,7 @@ class Cell {
         }
     }
 
-    getNeighbours() {
+    getNeighbour(draw) {
         let n = [];
 
         let t = cells[Cell.getIndex(this.x, this.y - 1)];
@@ -37,8 +59,10 @@ class Cell {
         if (l && l.available == true) { n.push(l); }
         if (r && r.available == true) { n.push(r); }
 
-        for (let ne of n) {
-            ne.highlight2(SIZE);
+        if (draw) {
+            for (let ne of n) {
+                ne.highlight2(SIZE);
+            }
         }
 
         let rnd = floor(random(0, n.length));
@@ -46,58 +70,50 @@ class Cell {
 
     }
 
-    static getIndex(x, y) {
-        if (x < 0 || y < 0 || x > COLS - 1 || y > ROWS - 1) {
-            return -1;
-        }
-        return y + x * COLS;
-    }
-
-
-    draw(size) {
+    draw() {
         noStroke();
 
         if (this.available) {
-            fill(255, 0, 0, 100);
+            fill(0, 255, 0, 100);
         } else {
             fill(150);
         }
 
-        let drawX = this.x * size;
-        let drawY = this.y * size;
-        rect(drawX, drawY, size, size);
+        let drawX = this.x * Cell.size;
+        let drawY = this.y * Cell.size;
+        rect(drawX, drawY, Cell.size, Cell.size);
 
         //Draw Lines
         stroke(0);
 
         //Top, Right, Bottom, Left
         if (this.walls[0]) {
-            line(drawX, drawY, drawX + size, drawY);
+            line(drawX, drawY, drawX + Cell.size, drawY);
         }
         if (this.walls[1]) {
-            line(drawX + size, drawY, drawX + size, drawY + size);
+            line(drawX + Cell.size, drawY, drawX + Cell.size, drawY + Cell.size);
         }
         if (this.walls[2]) {
-            line(drawX, drawY + size, drawX + size, drawY + size);
+            line(drawX, drawY + Cell.size, drawX + Cell.size, drawY + Cell.size);
         }
         if (this.walls[3]) {
-            line(drawX, drawY, drawX, drawY + size);
+            line(drawX, drawY, drawX, drawY + Cell.size);
         }
     }
 
-    highlight(size) {
+    highlight() {
         noStroke();
         fill(255, 255, 0);
-        let drawX = this.x * size;
-        let drawY = this.y * size;
-        rect(drawX, drawY, size, size);
+        let drawX = this.x * Cell.size;
+        let drawY = this.y * Cell.size;
+        rect(drawX, drawY, Cell.size, Cell.size);
     }
 
-    highlight2(size) {
+    highlight2() {
         noStroke();
         fill(255, 255, 255);
-        let drawX = this.x * size;
-        let drawY = this.y * size;
-        rect(drawX, drawY, size, size);
+        let drawX = this.x * Cell.size;
+        let drawY = this.y * Cell.size;
+        rect(drawX, drawY, Cell.size, Cell.size);
     }
 }
