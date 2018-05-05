@@ -1,4 +1,4 @@
-let ROWS = 10;
+let ROWS = 15;
 let COLS = 15;
 let SIZE = 40;
 let STEP = 1;
