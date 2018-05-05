@@ -1,6 +1,6 @@
 let ROWS = 10;
 let COLS = 15;
-let SIZE = 10;
+let SIZE = 40;
 let STEP = 1;
 
 let cells = [];
