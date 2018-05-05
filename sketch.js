@@ -1,7 +1,7 @@
-let ROWS = 100;
-let COLS = 120;
+let ROWS = 10;
+let COLS = 15;
 let SIZE = 10;
-let STEP = 100;
+let STEP = 1;
 
 let cells = [];
 let current;
