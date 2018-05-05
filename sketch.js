@@ -14,7 +14,7 @@ function setup() {
   createCanvas(SIZE * COLS, SIZE * ROWS)
   cells = Cell.getArray();
 
-  current = cells[5580];
+  current = cells[0];
   current.available = false;
 
   for (let c of cells) {
